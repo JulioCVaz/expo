@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 
 import ExpoImage, { ExpoImageModule } from './ExpoImage';
-import { ImageProps } from './Image.types';
+import { ImageNativeRef, ImageProps } from './Image.types';
 import { resolveContentFit, resolveContentPosition, resolveTransition } from './utils';
 import { resolveSources } from './utils/resolveSources';
 
@@ -36,6 +36,12 @@ export class Image extends React.PureComponent<ImageProps> {
     return await ExpoImageModule.clearDiskCache();
   }
 
+  nativeRef = React.createRef<ImageNativeRef>();
+
+  clearContent() {
+    return this.nativeRef.current?.clearContent?.();
+  }
+
   render() {
     const {
       style,
@@ -64,6 +70,7 @@ export class Image extends React.PureComponent<ImageProps> {
     return (
       <ExpoImage
         {...restProps}
+        nativeRef={this.nativeRef}
         style={restStyle}
         source={resolveSources(source)}
         placeholder={resolveSources(placeholder ?? defaultSource ?? loadingIndicatorSource)}

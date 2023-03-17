@@ -88,6 +88,13 @@ public final class ImageModule: Module {
       OnViewDidUpdateProps { view in
         view.reload()
       }
+
+      AsyncFunction("clearContent") { (viewTag: Int) in
+        guard let view = self.appContext?.findView(withTag: viewTag, ofType: ImageView.self) else {
+          throw Exceptions.ViewNotFound((tag: viewTag, type: ImageView.self))
+        }
+        view.sdImageView.image = nil
+      }
     }
 
     Function("prefetch") { (urls: [URL]) in

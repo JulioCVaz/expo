@@ -243,7 +243,12 @@ export interface ImageNativeProps extends ImageProps {
     placeholder?: ImageSource[];
     contentPosition?: ImageContentPositionObject;
     transition?: ImageTransition | null;
+    nativeRef?: React.RefObject<ImageNativeRef> | null;
 }
+/** @hidden */
+export type ImageNativeRef = {
+    clearContent: () => Promise<void>;
+};
 /**
  * A value that represents the relative position of a single axis.
  *

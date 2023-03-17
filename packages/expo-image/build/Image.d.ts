@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageProps } from './Image.types';
+import { ImageNativeRef, ImageProps } from './Image.types';
 export declare class Image extends React.PureComponent<ImageProps> {
     /**
      * Preloads images at the given urls that can be later used in the image view.
@@ -19,6 +19,8 @@ export declare class Image extends React.PureComponent<ImageProps> {
      * It may resolve to `false` on Android when the activity is no longer available.
      */
     static clearDiskCache(): Promise<boolean>;
+    nativeRef: React.RefObject<ImageNativeRef>;
+    clearContent(): Promise<void> | undefined;
     render(): JSX.Element;
 }
 //# sourceMappingURL=Image.d.ts.map

@@ -29,6 +29,10 @@ export class Image extends React.PureComponent {
     static async clearDiskCache() {
         return await ExpoImageModule.clearDiskCache();
     }
+    nativeRef = React.createRef();
+    clearContent() {
+        return this.nativeRef.current?.clearContent?.();
+    }
     render() {
         const { style, source, placeholder, contentFit, contentPosition, transition, fadeDuration, resizeMode: resizeModeProp, defaultSource, loadingIndicatorSource, ...restProps } = this.props;
         const { resizeMode: resizeModeStyle, ...restStyle } = StyleSheet.flatten(style) || {};
@@ -37,7 +41,7 @@ export class Image extends React.PureComponent {
             console.warn('[expo-image]: `defaultSource` and `loadingIndicatorSource` props are deprecated, use `placeholder` instead');
             loggedDefaultSourceDeprecationWarning = true;
         }
-        return (React.createElement(ExpoImage, { ...restProps, style: restStyle, source: resolveSources(source), placeholder: resolveSources(placeholder ?? defaultSource ?? loadingIndicatorSource), contentFit: resolveContentFit(contentFit, resizeMode), contentPosition: resolveContentPosition(contentPosition), transition: resolveTransition(transition, fadeDuration) }));
+        return (React.createElement(ExpoImage, { ...restProps, nativeRef: this.nativeRef, style: restStyle, source: resolveSources(source), placeholder: resolveSources(placeholder ?? defaultSource ?? loadingIndicatorSource), contentFit: resolveContentFit(contentFit, resizeMode), contentPosition: resolveContentPosition(contentPosition), transition: resolveTransition(transition, fadeDuration) }));
     }
 }
 //# sourceMappingURL=Image.js.map
